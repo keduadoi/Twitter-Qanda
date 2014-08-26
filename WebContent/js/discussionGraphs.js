@@ -7,8 +7,9 @@ $(document).ready(function()
 			data: {filename:'tweets_single_lines.dat'},
 			dataType: 'json',
 			success: function (data, statusText, jqXHR) {
-				//console.log(JSON.stringify(data));
-				
+				console.log(JSON.stringify(data));
+				//console.log("Receive: ");
+				document.write(data["graph"]);
 			}
 		});	
 });

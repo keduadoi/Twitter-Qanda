@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script src="lib/d3/d3.v3.js"></script>
+<script src="lib/dagre_graph/dagre-d3.js"></script>
+<script src="lib/dagre_graph/graphlib-dot.min.js"></script>
+
+<style>
+svg {
+  border: 1px solid #999;
+  overflow: hidden;
+}
+
+text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+  font-size: 14px;
+}
+
+.node rect {
+  stroke: #333;
+  fill: #fff;
+}
+
+.edgeLabel rect {
+  fill: #fff;
+}
+
+.edgePath path {
+  stroke: #333;
+  fill: none;
+}
+</style>
+
+<style>
+h1, h2 {
+  color: #333;
+}
+
+textarea {
+  width: 800px;
+}
+
+label {
+  margin-top: 1em;
+  display: block;
+}
+
+.error {
+  color: red;
+}
+</style>
+
+</head>
+<body onLoad="tryDraw(true);">
+
+
+<form>
+  <label for="inputGraph">Graphviz Definition</label>
+  <textarea id="inputGraph" rows="5" style="display: block" onKeyUp="tryDraw();">
+/* Example */
+digraph T_cc_0 {
+	268657006620053504	 [label="<<FONT FACE='Times-Italic'>Wed Nov 14 10:09:56 +0000 2012</FONT><br/> <FONT FACE='Times-Bold'>bradley_hudson1</FONT>: u'@JenniferJHall thanks for a great day <br/>Sunday!'>,
+		shape=box"];
+	268924000049180672	 [label="<<FONT FACE='Times-Italic'>Thu Nov 15 03:50:52 +0000 2012</FONT><br/> <FONT FACE='Times-Bold'>JenniferJHall</FONT>: u'@bradley_hudson1'>,
+		shape=box"];
+	268657006620053504 -> 268924000049180672;
+	267524762161524736	 [label="<<FONT FACE='Times-Italic'>Sun Nov 11 07:10:48 +0000 2012</FONT><br/> <FONT FACE='Times-Bold'>JenniferJHall</FONT>: u'chilling with my peeps@bradley_hudson1<br/>'>,
+		shape=box"];
+	267524762161524736 -> 268657006620053504;
+	268949102123966464	 [label="<<FONT FACE='Times-Italic'>Thu Nov 15 05:30:37 +0000 2012</FONT><br/> <FONT FACE='Times-Bold'>bradley_hudson1</FONT>: u'@JenniferJHall ??'>,
+		shape=box"];
+	268924000049180672 -> 268949102123966464;
+	435375064435802112	 [label="<<FONT FACE='Times-Italic'>Mon Feb 17 11:27:58 +0000 2014</FONT><br/> <FONT FACE='Times-Bold'>JenniferJHall</FONT>: u'@bradley_hudson1 Natalie Hudson qualit<br/>y tweeting on Qanda tonight'>,
+		shape=box"];
+	268949102123966464 -> 435375064435802112;
+}
+
+
+  </textarea>
+
+  <a id="graphLink">Link for this graph</a>
+</form>
+
+<h2>Graph Visualization</h2>
+
+<svg width=800 height=600>
+  <g transform="translate(20, 20)"/>
+</svg>
+
+<script>
+// Input related code goes here
+
+function graphToURL() {
+  var elems = [window.location.protocol, '//',
+               window.location.host,
+               window.location.pathname,
+               '?'];
+
+  var queryParams = [];
+  if (debugAlignment) {
+    queryParams.push('alignment=' + debugAlignment);
+  }
+  queryParams.push('graph=' + encodeURIComponent(inputGraph.value));
+  elems.push(queryParams.join('&'));
+
+  return elems.join('');
+}
+
+var inputGraph = document.querySelector("#inputGraph");
+
+var graphLink = d3.select("#graphLink");
+
+var oldInputGraphValue;
+
+var graphRE = /[?&]graph=([^&]+)/;
+var graphMatch = window.location.search.match(graphRE);
+if (graphMatch) {
+  inputGraph.value = decodeURIComponent(graphMatch[1]);
+}
+var debugAlignmentRE = /[?&]alignment=([^&]+)/;
+var debugAlignmentMatch = window.location.search.match(debugAlignmentRE);
+var debugAlignment;
+if (debugAlignmentMatch) debugAlignment = debugAlignmentMatch[1];
+
+function tryDraw(firstRun) {
+  var result;
+  if (oldInputGraphValue !== inputGraph.value) {
+    inputGraph.setAttribute("class", "");
+    oldInputGraphValue = inputGraph.value;
+    try {
+      result = graphlibDot.parse(inputGraph.value);
+    } catch (e) {
+      inputGraph.setAttribute("class", "error");
+      throw e;
+    }
+
+    if (result) {
+      // Save link to new graph
+      graphLink.attr("href", graphToURL());
+
+      // Cleanup old graph
+      var svg = d3.select("svg");
+
+      var renderer = new dagreD3.Renderer();
+
+      // Handle debugAlignment
+      renderer.postLayout(function(graph) {
+        if (debugAlignment) {
+          // First find necessary delta...
+          var minX = Math.min.apply(null, graph.nodes().map(function(u) {
+            var value = graph.node(u);
+            return value[debugAlignment] - value.width / 2;
+          }));
+
+          // Update node positions
+          graph.eachNode(function(u, value) {
+            value.x = value[debugAlignment] - minX;
+          });
+
+          // Update edge positions
+          graph.eachEdge(function(e, u, v, value) {
+            value.points.forEach(function(p) {
+              p.x = p[debugAlignment] - minX;
+            });
+          });
+        }
+      });
+
+      // Uncomment the following line to get straight edges
+      renderer.edgeInterpolate('linear');
+
+      // Custom transition function
+      function transition(selection) {
+        return selection.transition().duration(500);
+      }
+
+      renderer.transition(transition);
+
+      var layout = renderer.run(result, svg.select("g"));
+
+      (firstRun ? svg : transition(svg))
+        .attr("width", layout.graph().width + 40)
+        .attr("height", layout.graph().height + 40)
+    }
+  }
+}
+</script>
+</body>
+</html>

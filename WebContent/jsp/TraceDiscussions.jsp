@@ -15,9 +15,13 @@
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("application/x-javascript;charset=UTF-8");
 	String tracePythonFile = request.getSession().getServletContext().getRealPath("/")+"\\"+"list1.py";
+	System.out.println(tracePythonFile);
 	CreateDiscussionGraphs discussionGraphs = new CreateDiscussionGraphs();
 	String graphs = discussionGraphs.GetDiscussions(tracePythonFile);
 	System.out.println(graphs);
-	out.write(graphs);
+	JSONObject testObj = new JSONObject();
+	testObj.put("graph",graphs.toString());
+	//out.write(graphs.toString());
+	out.write(testObj.toString());
 	out.flush();
 %>

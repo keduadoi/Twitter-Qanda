@@ -468,6 +468,12 @@ $(document).ready(function()
 			network_page.width = $('#center-container').width();//897;//
 			network_page.height = $('#center-container').height();//697;
 			network_page.create_network();
-			}
+			},
+			beforeSend: function(){
+			       $('.loader').show();
+			   },
+			  complete: function(){
+			       $('.loader').hide();
+			  }
 		});	
 });

@@ -1,0 +1,16 @@
+digraph T_cc_0 {
+	268657006620053504	 [label=<<FONT FACE="Times-Italic">Wed Nov 14 10:09:56 +0000 2012</FONT><br/> <FONT FACE="Times-Bold">bradley_hudson1</FONT>: u'@JenniferJHall thanks for a great day <br/>Sunday!'>,
+		shape=box];
+	268924000049180672	 [label=<<FONT FACE="Times-Italic">Thu Nov 15 03:50:52 +0000 2012</FONT><br/> <FONT FACE="Times-Bold">JenniferJHall</FONT>: u'@bradley_hudson1'>,
+		shape=box];
+	268657006620053504 -> 268924000049180672;
+	267524762161524736	 [label=<<FONT FACE="Times-Italic">Sun Nov 11 07:10:48 +0000 2012</FONT><br/> <FONT FACE="Times-Bold">JenniferJHall</FONT>: u'chilling with my peeps@bradley_hudson1<br/>'>,
+		shape=box];
+	267524762161524736 -> 268657006620053504;
+	268949102123966464	 [label=<<FONT FACE="Times-Italic">Thu Nov 15 05:30:37 +0000 2012</FONT><br/> <FONT FACE="Times-Bold">bradley_hudson1</FONT>: u'@JenniferJHall ??'>,
+		shape=box];
+	268924000049180672 -> 268949102123966464;
+	435375064435802112	 [label=<<FONT FACE="Times-Italic">Mon Feb 17 11:27:58 +0000 2014</FONT><br/> <FONT FACE="Times-Bold">JenniferJHall</FONT>: u'@bradley_hudson1 Natalie Hudson qualit<br/>y tweeting on Qanda tonight'>,
+		shape=box];
+	268949102123966464 -> 435375064435802112;
+}
