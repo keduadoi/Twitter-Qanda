@@ -20,6 +20,9 @@
 # strings where the string length is 2 or more and the first
 # and last chars of the string are the same.
 # Note: python does not have a ++ operator, but += works.
+
+import time
+
 def match_ends(words):
   # +++your code here+++
   # LAB(begin solution)
@@ -91,6 +94,7 @@ def test(got, expected):
 # Calls the above functions with interesting inputs.
 def main():
   print 'match_ends'
+  time.sleep(2)
   test(match_ends(['aba', 'xyz', 'aa', 'x', 'bbb']), 3)
   test(match_ends(['', 'x', 'xy', 'xyx', 'xx']), 2)
   test(match_ends(['aaa', 'be', 'abc', 'hello']), 1)

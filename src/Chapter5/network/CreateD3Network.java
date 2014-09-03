@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Level;
@@ -38,8 +37,6 @@ import Chapter5.support.NodeIDComparator;
 import Chapter5.support.NodeSizeComparator;
 import Chapter5.support.ToNodeInfo;
 import Chapter5.support.Tweet;
-
-import com.google.gson.JsonObject;
 
 /**
  *
@@ -209,7 +206,7 @@ public class CreateD3Network
             JSONObject hashtags, int num_nodes, String from, String to)
     {
     	//fetch all_docs couchdb
-    	List<JsonObject>allTweets = dbClient.view("_all_docs").query(JsonObject.class);
+    	//List<JsonObject>allTweets = dbClient.view("_all_docs").query(JsonObject.class);
         HashMap<String,NetworkNode> userconnections = new HashMap<String,NetworkNode>();
 //        HashMap<String,Integer> tweet_class_codes = new HashMap<String,Integer>();
 //        int tweet_class_counter = 1;
