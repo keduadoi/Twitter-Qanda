@@ -6,13 +6,6 @@
 package Chapter5.network;
 
 
-import Chapter5.support.HashTagDS;
-import Chapter5.support.NetworkNode;
-import Chapter5.support.NodeIDComparator;
-import Chapter5.support.NodeSizeComparator;
-import Chapter5.support.ToNodeInfo;
-import Chapter5.support.Tweet;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,9 +31,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.lightcouch.CouchDbClient;
 
-import com.google.gson.JsonObject;
-
 import utils.TextUtils;
+import Chapter5.support.HashTagDS;
+import Chapter5.support.NetworkNode;
+import Chapter5.support.NodeIDComparator;
+import Chapter5.support.NodeSizeComparator;
+import Chapter5.support.ToNodeInfo;
+import Chapter5.support.Tweet;
+
+import com.google.gson.JsonObject;
 
 /**
  *
@@ -48,7 +47,7 @@ import utils.TextUtils;
  */
 public class CreateD3Network
 {
-	private CouchDbClient dbClient = new CouchDbClient("tweets",true,"http","127.0.0.1",5984,"","");
+	private CouchDbClient dbClient = new CouchDbClient("tweets", true, "http", "localhost", 5984, null, null);
     static final String DEF_INFILENAME = "ows.json";
     private String RTPATTERN = "rt @[_a-zA-Z0-9]+";
     private final int DEFAULT_NODE_SIZE = 0;
@@ -219,18 +218,18 @@ public class CreateD3Network
         try{
             br = new BufferedReader(new InputStreamReader(new FileInputStream(inFilename),"UTF-8"));
             String temp = "";
-            //while((temp = br.readLine())!=null)
-            for(JsonObject tweet : allTweets)
+            while((temp = br.readLine())!=null)
+            //for(JsonObject tweet : allTweets)
             {          
-                //JSONObject tweetobj;
-            	JsonObject tweetJson = null;
+                JSONObject tweetobj;
+            	//JsonObject tweetJson = null;
                 Date createdDate = new Date();
                 Date fromDate = new Date();
                 Date toDate = new Date();
                 try {
-                    //tweetobj = new JSONObject(temp);
-                    //String createdStr = tweetobj.getString("created_at").toString();
-                	String createdStr = tweetJson.get("created_at").toString();
+                    tweetobj = new JSONObject(temp);
+                    String createdStr = tweetobj.getString("created_at").toString();
+                	//String createdStr = tweetJson.get("created_at").toString();
                     String[] createdArr = createdStr.split("\\s+");
                     
                     //convert month in name to number
@@ -245,7 +244,7 @@ public class CreateD3Network
                     createdDate = dateFormat.parse(createdInFormat);                   
                     fromDate = dateFormat.parse(from);
                     toDate = dateFormat.parse(to);
-                } catch (/*JSONException |*/ ParseException e) {
+                } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                     continue;
                 } 
@@ -261,9 +260,9 @@ public class CreateD3Network
                 Tweet t = new Tweet();
                 String text="";
                 try {
-                    //text = TextUtils.GetCleanText(tweetobj.getString("text")).toLowerCase();
-                	text = TextUtils.GetCleanText(tweetJson.get("text").toString()).toLowerCase();
-                } catch (/*JSON*/Exception ex) {
+                    text = TextUtils.GetCleanText(tweetobj.getString("text")).toLowerCase();
+                	//text = TextUtils.GetCleanText(tweetJson.get("text").toString()).toLowerCase();
+                } catch (JSONException ex) {
                     ex.printStackTrace();
                     continue;
                 }
@@ -292,27 +291,27 @@ public class CreateD3Network
                
                 //
                 ArrayList<String> fromusers = new ArrayList<String>();
-                //if(!tweetobj.isNull("retweeted_status"))
-                if(tweetJson.get("retweeted_status")!=null)
+                if(!tweetobj.isNull("retweeted_status"))
+                //if(tweetJson.get("retweeted_status")!=null)
                 {
-                    //JSONObject rtstatus;
-                	JsonObject rtstatus;
+                    JSONObject rtstatus;
+                	//JsonObject rtstatus;
                     try {
-                        //rtstatus = tweetobj.getJSONObject("retweeted_status");
-                    	rtstatus = tweetJson.getAsJsonObject("retweeted_status");
-                        //if(rtstatus.isNull("user"))
-                    	if(rtstatus.get("user")==null)
+                        rtstatus = tweetobj.getJSONObject("retweeted_status");
+                    	//rtstatus = tweetJson.getAsJsonObject("retweeted_status");
+                        if(rtstatus.isNull("user"))
+                    	//if(rtstatus.get("user")==null)
                         {
-                            //JSONObject rtuserobj = rtstatus.getJSONObject("user");
-                    		JsonObject rtuserobj = rtstatus.getAsJsonObject("user");
+                            JSONObject rtuserobj = rtstatus.getJSONObject("user");
+                    		//JsonObject rtuserobj = rtstatus.getAsJsonObject("user");
                             try{
                                 fromusers.add(rtuserobj.get("screen_name").toString());
-                            }catch(/*JSON*/Exception ex)
+                            }catch(JSONException ex)
                             {
                                 ex.printStackTrace();
                             }
                         }
-                    } catch (/*JSON*/Exception ex) {
+                    } catch (JSONException ex) {
                         Logger.getLogger(CreateD3Network.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -337,17 +336,17 @@ public class CreateD3Network
 //                    tweet_class_counter++;
 //                }
                 t.text = TextUtils.RemoveRTElements(text);
-                //if(!tweetobj.isNull("user"))
-                if(tweetJson.get("user")!=null)
+                if(!tweetobj.isNull("user"))
+                //if(tweetJson.get("user")!=null)
                 {
-                    //JSONObject userobj;
-                	JsonObject userobj = null;
+                    JSONObject userobj;
+                	//JsonObject userobj = null;
                     try {
-                        //userobj = tweetobj.getJSONObject("user");
-                        //t.user = userobj.getString("screen_name").toLowerCase();
-                    	userobj = tweetJson.getAsJsonObject("user");
-                    	t.user = userobj.get("screen_name").toString().toLowerCase();
-                    } catch (/*JSON*/Exception ex) {
+                        userobj = tweetobj.getJSONObject("user");
+                        t.user = userobj.getString("screen_name").toLowerCase();
+//                    	userobj = tweetJson.getAsJsonObject("user");
+//                    	t.user = userobj.get("screen_name").toString().toLowerCase();
+                    } catch (JSONException ex) {
                         Logger.getLogger(CreateD3Network.class.getName()).log(Level.SEVERE, null, ex);
                     }                        
                 }
