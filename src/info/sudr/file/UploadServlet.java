@@ -139,8 +139,10 @@ public class UploadServlet extends HttpServlet {
                         json.put(jsono);
                         
                         //run python script
-                        String pythonFile = "C:\\Users\\NguyenTrong\\workspace\\TwitterQanda\\WebContent\\store_tweet.py";
-                        String[] arguments = {"python",pythonFile,"-C","tweets",fileUploadPath.getAbsolutePath()+"\\"+item.getName()};
+                        //String pythonFile = "C:\\Users\\NguyenTrong\\workspace\\TwitterQanda\\WebContent\\store_tweet.py";
+                        //String[] arguments = {"python",pythonFile,"-C","tweets",fileUploadPath.getAbsolutePath()+"\\"+item.getName()};
+                        String pythonFile = "C:\\Users\\NguyenTrong\\workspace\\TwitterQanda\\WebContent\\list1.py";
+                        String[] arguments = {"python",pythonFile};
                         new Thread(new RunPythonScript(arguments)).start();
                 }
             }
@@ -200,7 +202,6 @@ public class UploadServlet extends HttpServlet {
 				ProcessBuilder pb = new ProcessBuilder(arguments);
 				Process p = pb.start();
 				BufferedReader buffer = new BufferedReader(new InputStreamReader(p.getInputStream()));
-				
 				String line = buffer.readLine();
 				while(line!=null){
 					graphs = graphs+line+"\n";
