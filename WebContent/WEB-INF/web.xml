@@ -17,11 +17,22 @@
         <init-param>
             <description>Define storagepath for fileuploads</description>
             <param-name>upload_path</param-name>
-            <param-value>C:\\Users\NguyenTrong\\workspace\\TwitterQanda\\WebContent\\uploads</param-value>
+            <param-value>C:\\Users\\NguyenTrong\\workspace\\TwitterQanda\\WebContent\\uploads</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/upload</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+    <description></description>
+    <display-name>DownloadServlet</display-name>
+    <servlet-name>DownloadServlet</servlet-name>
+    <servlet-class>info.sudr.file.DownloadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadServlet</servlet-name>
+    <url-pattern>/download</url-pattern>
+  </servlet-mapping>
 </web-app>

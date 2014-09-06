@@ -457,23 +457,54 @@ $(document).ready(function()
 	   }
    }
    
+   var params = {};
+   params.filename = "tweets_single_lines.dat";
+   params.nclasses = network_page.num_classes;
+   params.hashtagjson = hashtags_json;
+   params.num_nodes = numnodes;
+   params.from = from;
+   params.to = to;
+   
+   $("#downloadTweets").click(function(event){
+	   $("#download").submit();
+//	   $.ajax({
+//		    url: 'download',
+//		    type: 'POST',
+//		    data: { tweetsJson: "{\"raw\":[{\"id\":1,\"text\":\"something\"}]}" },
+//		    success: function (data, statusText, jqXHR) {
+//		        //alert('the request was successfully sent to the server');
+//		    },
+//		    beforeSend: function(){
+//			       $('.loader').show();
+//			   },
+//			  complete: function(){
+//			       $('.loader').hide();
+//			       
+//			  }
+//		});
+   });
+   
    $.ajax(network_page.script_location,
 		{// 1303628399,12:59 1303588799
 		//2011-04-23 12:00:00, 2011-04-23 12:59:59
 			data: {filename:'tweets_single_lines.dat', nclasses: network_page.num_classes, hashtagjson: JSON.stringify(hashtags_json),num_nodes:numnodes,from:from,to:to},
 			dataType: 'json',
 			success: function (data, statusText, jqXHR) {
-				//console.log(JSON.stringify(data));
+				console.log(JSON.stringify(data));
 			network_page.jsondata = data;
 			network_page.width = $('#center-container').width();//897;//
 			network_page.height = $('#center-container').height();//697;
 			network_page.create_network();
+			$("#tweetsJson").val(JSON.stringify(params));
 			},
 			beforeSend: function(){
 			       $('.loader').show();
+			       $("#downloadTweets").hide();
 			   },
 			  complete: function(){
 			       $('.loader').hide();
+			       $("#downloadTweets").show();
+			       
 			  }
 		});	
 });

@@ -16,7 +16,7 @@
 	response.setContentType("application/x-javascript;charset=UTF-8");
 	int nof_classes = Integer.parseInt(request.getParameter("nclasses"));
 	String callbackName = request.getParameter("callback");
-	String infilename = request.getSession().getServletContext().getRealPath("/")+"/"+request.getParameter("filename");	
+	String infilename = request.getSession().getServletContext().getRealPath("/")+"\\"+request.getParameter("filename");	
 	JSONObject tagjson = new JSONObject(request.getParameter("hashtagjson"));
 	int num_nodes = 10;
 	String from = "01/01/2011";

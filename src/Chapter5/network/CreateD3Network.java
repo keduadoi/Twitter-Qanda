@@ -48,6 +48,7 @@ public class CreateD3Network
     static final String DEF_INFILENAME = "ows.json";
     private String RTPATTERN = "rt @[_a-zA-Z0-9]+";
     private final int DEFAULT_NODE_SIZE = 0;
+    private JSONArray rawTweets; 
 //    private final int NODE_COUNT_LIMIT = 1;
     //private final String[] node_color_scheme = new String[]{"#FFFFD9","#EDF8B1","#C7E9B4","#7FCDBB","#41B6C4","#1D91C0","#225EA8","#253494","#081D58"};
     //private final String[] node_color_scheme = new String[]{"#A6BDDB","#74A9CF","#3690C0","#0570B0","#045A8D","#023858"};
@@ -210,6 +211,7 @@ public class CreateD3Network
         HashMap<String,NetworkNode> userconnections = new HashMap<String,NetworkNode>();
 //        HashMap<String,Integer> tweet_class_codes = new HashMap<String,Integer>();
 //        int tweet_class_counter = 1;
+        rawTweets = new JSONArray();
         HashTagDS[] hashtagarray = ConvertJSONArrayToArray(hashtags);
         BufferedReader br = null;
         try{
@@ -252,6 +254,7 @@ public class CreateD3Network
                 	continue;
                 }
                 //System.out.println("True: Created: "+createdDate.toString()+" From: "+fromDate.toString()+" To: "+toDate.toString());
+                
                 
                 //Extract the tweet first
                 Tweet t = new Tweet();
@@ -450,6 +453,7 @@ public class CreateD3Network
                     //update the level for next iteration
                     cur_level++;
                 }
+                rawTweets.put(tweetobj);
             }
             br.close();
         }catch(IOException ex)
@@ -603,15 +607,30 @@ public class CreateD3Network
 //          finalnodes.add(nd);
 //      }
       Collections.sort(finalnodes,new NodeIDComparator());
-      System.out.println(finalnodes.size());
+      
         for(NetworkNode node:finalnodes)
         {
             System.out.println(node.id+" "+node.username+" "+node.level+" "+node.size+" "+node.catColor+node.data.get(0));
         }
+        
+      for(int i=0;i<rawTweets.length();++i){
+    	  try {
+			System.out.println(rawTweets.get(i).toString());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      }
+      
+      System.out.println("Final nodes: "+finalnodes.size()+"\tRaw: "+rawTweets.length());
       return GetD3Structure(finalnodes);
     }
 
-    /**
+    public JSONArray getRawTweets() {
+		return rawTweets;
+	}
+
+	/**
      * Creates a D3 representation of the nodes, consisting of two JSONArray a set of nodes and a set of links between the nodes
      * @param finalnodes
      * @return
@@ -680,9 +699,11 @@ public class CreateD3Network
             }
             alltweets.put("nodes", nodes);
             alltweets.put("links", links);
+            alltweets.put("raw", rawTweets);
         } catch (JSONException ex) {
             Logger.getLogger(CreateD3Network.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return alltweets;
     }
 

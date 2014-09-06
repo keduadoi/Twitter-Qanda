@@ -140,7 +140,7 @@ public class UploadServlet extends HttpServlet {
                         
                         //run python script
                         //String pythonFile = "C:\\Users\\NguyenTrong\\workspace\\TwitterQanda\\WebContent\\store_tweet.py";
-                        //String[] arguments = {"python",pythonFile,"-C","tweets",fileUploadPath.getAbsolutePath()+"\\"+item.getName()};
+                        //String[] arguments = {"python",pythonFile,"-C","test",fileUploadPath.getAbsolutePath()+"\\"+item.getName()};
                         String pythonFile = "C:\\Users\\NguyenTrong\\workspace\\TwitterQanda\\WebContent\\list1.py";
                         String[] arguments = {"python",pythonFile};
                         new Thread(new RunPythonScript(arguments)).start();
