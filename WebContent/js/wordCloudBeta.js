@@ -25,7 +25,13 @@
 				}
 				options.list = top_key_words;
 				WordCloud(canvas, options);
-                }
+                },
+                beforeSend: function(){
+ 			       $('.loader').show();
+ 			   },
+ 			  complete: function(){
+ 			       $('.loader').hide();		       
+ 			  }
             });
 }
   
