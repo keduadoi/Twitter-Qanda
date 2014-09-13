@@ -153,7 +153,7 @@ def store_test(option, opt, value, parser):
     # more than 1
     else:
         print num,"tweets are stored and the time taking is",timeperiod
-#     sys.exit(0)
+    sys.exit(0)
 
 if __name__ == '__main__':
     parser = OptionParser()

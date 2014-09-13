@@ -40,6 +40,10 @@
   background: url(../img/progressbar.gif) !important;
   filter: none;
 }
+.bar {
+    height: 18px;
+    background: green;
+}
 .fileupload-loading {
   position: absolute;
   left: 50%;

@@ -19,15 +19,18 @@ html, body {
     margin:0 auto;
     position:relative;
 }*/
-
-#right-container, 
+ 
 #center-container {
 	height:100%;
 	position:absolute;
+	width:75%;
     top:1;
+    margin: 0px auto;
 }
 
 #right-container {
+	height:100%;
+	position:absolute;
 	top:3;
     width:23%;
     color:#686c70;
@@ -48,10 +51,7 @@ html, body {
     text-indent:2px;
 }
 /*old background-color #28333A;*/
-#center-container {
-    width:90%;
-    color:#ccc;
-}
+
 
 #right-container ul{
 	text-indent:0.5px;

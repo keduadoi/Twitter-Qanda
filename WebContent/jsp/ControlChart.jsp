@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="org.json.JSONArray" %>
-<%@ page import="Chapter5.trends.ControlChartExample" %>
+<%@ page import="com.qanda.trends.ControlChartExample" %>
 <% 
 	String callbackName = request.getParameter("callback");
 	response.setCharacterEncoding("UTF-8");

@@ -1,6 +1,6 @@
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Chapter5.trends.SparkLineExample" %>
+<%@ page import="com.qanda.trends.SparkLineExample" %>
 <%
 	String callbackName = request.getParameter("callback");
 	response.setCharacterEncoding("UTF-8");

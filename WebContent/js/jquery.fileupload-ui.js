@@ -387,7 +387,8 @@
                     data.loaded / data.total
                 ) + ' | ' +
                 this._formatFileSize(data.loaded) + ' / ' +
-                this._formatFileSize(data.total);
+                this._formatFileSize(data.total)
+                + '   <i>(Process is still running...)</i>';
         },
 
         _hasError: function (file) {

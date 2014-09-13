@@ -19,7 +19,7 @@ window.locale = {
             "acceptFileTypes": "Filetype not allowed",
             "maxNumberOfFiles": "Max number of files exceeded",
             "uploadedBytes": "Uploaded bytes exceed file size",
-            "emptyResult": "Empty file upload result"
+            "emptyResult": "Invalid file extension"
         },
         "error": "Error",
         "start": "Start",

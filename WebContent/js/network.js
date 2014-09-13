@@ -6,7 +6,7 @@ var network_page = {
  height:null, 
  detachednodes:null,
  detachededges:null,
- nodesize:4,
+ nodesize:5,
  position:null,
  name_regex:/@[_a-z0-9]+/gi,
  url_regex:/https?:\/\/[a-zA-Z0-9\.\/]+/gi,
@@ -200,7 +200,7 @@ $('#graph').html('');
       .links(network_page.net.links)
       .size([width,height])
 	  .charge(-500)
-      .linkDistance(80)
+      .linkDistance(130)
 	  .theta(0.8)
 	  .gravity(0.2)
       .start();
