@@ -109,9 +109,9 @@ $(document).ready(function()
 			        	+"</button>"
 		        		+"</td>"
 		        		+"<td>"
-		        		+"<button type='button' class='btn btn-primary start' id='moreDbInfo' name='moreDbInfo'>"
+		        		+"<button type='button' class='btn btn-primary start' id='traceDb' name='traceDb'>"
 			        	+"<i class=icon-upload icon-white'></i>"
-			            +"<span>More information</span>"
+			            +"<span>Generate discussions</span>"
 			        	+"</button>"
 		        		+"</td>"
 		        		+"</tr></table>"
@@ -150,9 +150,9 @@ $(document).ready(function()
 			        	+"</button>"
 		        		+"</td>"
 		        		+"<td>"
-		        		+"<button type='button' class='btn btn-primary start' id='moreDbInfo' name='moreDbInfo'>"
+		        		+"<button type='button' class='btn btn-primary start' id='traceDb' name='traceDb'>"
 			        	+"<i class=icon-upload icon-white'></i>"
-			            +"<span>More information</span>"
+			            +"<span>Generate discussions</span>"
 			        	+"</button>"
 		        		+"</td>"
 		        		+"</tr></table>"
@@ -169,6 +169,47 @@ $(document).ready(function()
 			  }
 		});	   
 	 });
+	
+	
+	$(document).on('click', '#traceDb', function(){ 
+		var dbName = $("#dbNameHidden").val();
+		var docsBeforeFetch = $("#dbDocsHidden").val();
+		$.ajax({
+		    url: 'DatabaseOperations',
+		    type: 'POST',
+		    data: { dbInput: dbName, operation: 'trace' },
+		    success: function (data, statusText, jqXHR) {
+		    	$("#selectedDb").empty();
+		    	$("#selectedDb").append(
+		        		"<table border=0 cellpadding='10'><tr>"
+		        		+"<td><strong>"+dbName+"</strong></td>"
+		        		+"<td>#tweets: "+docsBeforeFetch+"</td>"
+		        		+"<td>"
+		        		+"<button type='button' class='btn btn-primary start' id='fetchDb' name='fetchDb'>"
+			        	+"<i class=icon-upload icon-white'></i>"
+			            +"<span>Fetch</span>"
+			        	+"</button>"
+		        		+"</td>"
+		        		+"<td>"
+		        		+"<button type='button' class='btn btn-primary start' id='traceDb' name='traceDb'>"
+			        	+"<i class=icon-upload icon-white'></i>"
+			            +"<span>Generate discussions</span>"
+			        	+"</button>"
+		        		+"</td>"
+		        		+"</tr></table>"
+		        );
+		    },
+		    beforeSend: function(){
+		    	//$("#dbLoader").append("<h5>Estimation fetching time: "+Math.round(0.03*docsBeforeFetch)+" minutes</h5>");
+			    $('#dbLoader').show();
+			   },
+			  complete: function(){
+				  //$("#dbLoader").children("h5").remove();
+			       $('#dbLoader').hide();
+			  }
+		});	   
+	 });
+	
 });
 </script>   
      
