@@ -200,7 +200,7 @@ $('#graph').html('');
       .links(network_page.net.links)
       .size([width,height])
 	  .charge(-500)
-      .linkDistance(130)
+      .linkDistance(function(d) { return  200.0*(d.value); }) 
 	  .theta(0.8)
 	  .gravity(0.2)
       .start();
@@ -399,11 +399,9 @@ $('#graph').html('');
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    node.attr("cx", function(d) {
-            return d.x = Math.max(r, Math.min(width - r, d.x));
-        }).attr("cy", function(d) {
-            return d.y = Math.max(r, Math.min(height - r, d.y));
-        });
+    node.attr("cx", function(d) { return d.x; })
+    	.attr("cy", function(d) { return d.y; });
+    
   });
 
 }

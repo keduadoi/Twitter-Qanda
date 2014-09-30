@@ -40,6 +40,7 @@ public class DatabaseOperations extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request, response);
 	}
 
 	/**
@@ -123,7 +124,9 @@ public class DatabaseOperations extends HttpServlet {
     				//store discussions
     				CouchDbClient dbDiscussionClient = new CouchDbClient(dbName+"_discussions", true, "http", "localhost", 5984, null, null);
     				File[] graphFiles = new File(request.getServletContext().getRealPath("/")+"dot_files").listFiles();
+    				System.out.println("Num: "+graphFiles.length);
     				for(File file: graphFiles){
+    					System.out.println("File: "+file.getName());
     					List<JsonObject> allDiscussions = dbDiscussionClient.view("_all_docs").query(JsonObject.class);
     					
     					String wholeFile = new String(Files.readAllBytes(file.toPath()),StandardCharsets.UTF_8);

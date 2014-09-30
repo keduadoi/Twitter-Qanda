@@ -871,7 +871,7 @@ public class CreateD3Network
             }
             alltweets.put("nodes", nodes);
             alltweets.put("links", links);
-            alltweets.put("raw", rawTweets);
+            //alltweets.put("raw", rawTweets);
         } catch (JSONException ex) {
             Logger.getLogger(CreateD3Network.class.getName()).log(Level.SEVERE, null, ex);
         }
