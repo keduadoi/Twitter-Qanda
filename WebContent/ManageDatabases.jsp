@@ -22,7 +22,9 @@
 </style>
 <script>
 $(document).ready(function()
-{	      		
+{	      	
+	$("li#manageDbNav").toggleClass('activate');
+	
 	$("#dbSubmit").click(function(event){
 		document.getElementById("fileOperations").style.display="none";
 		var dbInput = $("#dbName").val();

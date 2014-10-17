@@ -96,24 +96,23 @@ body{
 	display: block;
 }
 
-#login-content {
+#selectdb-div-nav {
 	display: none;
   	position: absolute;
-  	top: 50px;
-  	right: -20px;
+  	top: 35px;
   	z-index: 999;    
   	background: #5f6975;  
   	padding: 15px;
   	box-shadow: 0 2px 2px -1px rgba(0,0,0,.9);
   	border-radius: 3px 0 3px 3px;
-  	width:280px;
+  	width:250px;
 }
 
 #inputs input {
   background: #f1f1f1;
   padding: 6px 5px;
   margin: 0 0 5px 0;
-  width: 238px;
+  width: 221px;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-shadow: 0 1px 1px #ccc inset;
@@ -126,11 +125,11 @@ body{
   box-shadow: 0 0 0 1px #e8c291 inset;
 }
 
-#login #actions {
+#selectdb-nav #actions {
   margin: 10px 0 0 0;
 }
 
-#login #submit {    
+#selectdb-nav #dbSubmit-nav {    
   background-color: #d14545;
   background-image: linear-gradient(top, #e97171, #d14545);
   -moz-border-radius: 3px;
@@ -142,33 +141,33 @@ body{
   float: left;
   height: 30px;
   padding: 0;
-  width: 100px;
+  width: 221px;
   cursor: pointer;
   font: bold 14px Arial, Helvetica;
   color: #fff;
 }
 
-#login #submit:hover,
-#login #submit:focus {    
+#selectdb-nav #dbSubmit-nav:hover,
+#selectdb-nav #dbSubmit-nav:focus {    
   background-color: #e97171;
   background-image: linear-gradient(top, #d14545, #e97171);
 } 
 
-#login #submit:active {   
+#selectdb-nav #dbSubmit-nav:active {   
   outline: none;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;   
 }
 
-#login #submit::-moz-focus-inner {
+#selectdb-nav #dbSubmit-nav::-moz-focus-inner {
   border: none;
 }
 
-#login label {
+#selectdb-nav label {
   float: right;
   line-height: 30px;
 }
 
-#login label input {
+#selectdb-nav label input {
   position: relative;
   top: 2px;
   right: 2px;

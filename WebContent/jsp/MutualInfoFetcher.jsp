@@ -25,7 +25,7 @@
 	CreateMutualInformationNetwork mutualInfoNetwork = new CreateMutualInformationNetwork();
 	//Get the tweets and create network nodes and links
 	ArrayList<JsonObject> mutualInformationList = mutualInfoNetwork.CreateMutualInformationList(dbName+"_discussions",threshold);
-	System.out.println(mutualInformationList.toString());
+	//System.out.println(mutualInformationList.toString());
 	JSONObject result = mutualInfoNetwork.GetD3StructureMI(mutualInformationList);
 	System.out.println(result.toString());
 	out.write(result.toString());

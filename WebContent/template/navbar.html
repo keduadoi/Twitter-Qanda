@@ -1,3 +1,43 @@
+<script>
+$(document).ready(function()
+{
+	$("#dbSubmit-nav").click(function(event){
+		  var dbInput = $("#dbInput-nav").val();
+		  if(dbInput.length==0){
+			alert("Database name must not be empty");
+			return;
+		  }
+		   $.ajax({
+		    url: 'DatabaseOperations',
+		    type: 'POST',
+		    data: { dbInput: dbInput, operation: 'get' },
+		    success: function (data, statusText, jqXHR) {
+		        if(jQuery.parseJSON(data).isExist=="true"){
+		        	if(parseInt(jQuery.parseJSON(data).doc_count)==0){
+		        		alert("This database is empty, please upload tweets data before processing")
+		        	}else{
+		        		alert("\""+dbInput+"\" is selected");
+			        	setCookie("currentDb", dbInput, 1);
+			        	setCookie("doc_count", jQuery.parseJSON(data).doc_count, 1);
+			        	$("#currentDbText").text(getCookie("currentDb"));
+			        	$("#db_name").text("Database name: "+dbInput);
+			        	$("#doc_count").text("Number of tweets: "+jQuery.parseJSON(data).doc_count);
+		        	}
+		        } else {
+		        	alert("Database does not exist. Please create and upload data before analyzing")
+		        }
+		    },
+		    beforeSend: function(){
+			       $('.loader').show();
+			   },
+			  complete: function(){
+			       $('.loader').hide();
+			       $('#selectdb-trigger').trigger('click');
+			  }
+		});	   
+	  });
+});
+</script>
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -10,8 +50,8 @@
         </div>
         <div class="navbar-collapse collapse" id="navBarMenu">
             <ul class="nav navbar-nav">
-                <li><a href="ManageDatabases.jsp">Manage databases</a></li>
-                <li><a href="#">Analysis tools</a>
+                <li id="manageDbNav"><a href="ManageDatabases.jsp">Manage databases</a></li>
+                <li id="analysisNav"><a href="#">Analysis tools</a>
                 	<ul>
                 		<li><a href="index.jsp">Retweeted network</a></li>
                 		<li><a href="WordCloud.jsp">Top keywords</a></li>
@@ -20,29 +60,28 @@
                 		<li><a href="KeywordsComparison.jsp">Keywords comparison</a></li>
                 	</ul>
                 </li>
-                <li><a href="#">Evaluation tests</a>
+                <li id="evaluationNav"><a href="#">Evaluation tests</a>
                 	<ul>
                 		<li><a href="InfluenceLevel.jsp">Influence level</a></li>
                 	</ul>
                 </li>
-                <li id="login">
-			      <a id="login-trigger" href="#">
-			        Select database <span>&#x25BC;</span>
+                <li id="downloadNav"><a href="DownloadTweets.jsp">Download tweets</a></li>
+                <li id="selectdb-nav">
+			      <a id="selectdb-trigger" href="#">
+			      	<b>Database: <span id="currentDbText" style="color:red"><script>document.write(getCookie("currentDb"))</script></span></b>
+			        <i><font size="-1">(Change)</font></i> <span id="arrow">&#x25BC;</span>
 			      </a>
-			      <div id="login-content">
-			        <form>
+			      <div id="selectdb-div-nav">
+			        <form id="dbSelect-nav" name="dbSelect-nav" action="GetDatabase" method="post">
 			          <fieldset id="inputs">
-			            <input id="username" type="email" name="Email" placeholder="Your email address" required>   
-			            <input id="password" type="password" name="Password" placeholder="Password" required>
+			            <input id="dbInput-nav" type="text" name="dbInput-nav" placeholder="Enter database" required>   
 			          </fieldset>
 			          <fieldset id="actions">
-			            <input type="submit" id="submit" value="Log in">
-			            <label><input type="checkbox" checked="checked"> Keep me signed in</label>
+			            <input type="button" id="dbSubmit-nav" value="Select this database">
 			          </fieldset>
 			        </form>
 			      </div>                     
 			    </li>
-                <li><a href="#"><i>Database in use:</i> <b><span id="currentDbText" style="color:red"><script>document.write(getCookie("currentDb"))</script></span></b></a></li>
             </ul>
         </div> 
     </div>

@@ -27,7 +27,11 @@
 <link rel="stylesheet" href="css/jquery.fileupload-ui.css">
 <!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
 <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
+<script>
+$(document).ready(function(){
+	$("li#analysisNav").toggleClass('activate');
+});
+</script>
 <script>
 	
 function setCookie(cname,cvalue,exdays) {
@@ -124,17 +128,37 @@ label {
         </div>
         <div class="navbar-collapse collapse" id="navBarMenu">
             <ul class="nav navbar-nav">
-                <li><a href="ManageDatabases.jsp">Manage databases</a></li>
-                <li><a href="#">Analysis tools</a>
+                <li id="manageDbNav"><a href="ManageDatabases.jsp">Manage databases</a></li>
+                <li id="analysisNav"><a href="#">Analysis tools</a>
                 	<ul>
                 		<li><a href="index.jsp">Retweeted network</a></li>
                 		<li><a href="WordCloud.jsp">Top keywords</a></li>
                 		<li><a href="ViewDiscussions.html">Discussion trees</a></li>
+                		<li><a href="MutualInformation.jsp">Mutual Information</a></li>
+                		<li><a href="KeywordsComparison.jsp">Keywords comparison</a></li>
                 	</ul>
                 </li>
-                <li><a href="#">Documentation</a></li>
-                <li><a href="#"></a></li><li><a href="#"></a></li>
-                <li><a href="#"><i>Database in use:</i> <b><span id="currentDbText" style="color:red"><script>document.write(getCookie("currentDb"))</script></span></b></a></li>
+                <li id="evaluationNav"><a href="#">Evaluation tests</a>
+                	<ul>
+                		<li><a href="InfluenceLevel.jsp">Influence level</a></li>
+                	</ul>
+                </li>
+                <li id="selectdb-nav">
+			      <a id="selectdb-trigger" href="#">
+			      	<b>Database in use: <span id="currentDbText" style="color:red"><script>document.write(getCookie("currentDb"))</script></span></b>
+			        <i><font size="-1">(Change database)</font></i> <span id="arrow">&#x25BC;</span>
+			      </a>
+			      <div id="selectdb-div-nav">
+			        <form id="dbSelect-nav" name="dbSelect-nav" action="GetDatabase" method="post">
+			          <fieldset id="inputs">
+			            <input id="dbInput-nav" type="text" name="dbInput-nav" placeholder="Enter database" required>   
+			          </fieldset>
+			          <fieldset id="actions">
+			            <input type="button" id="dbSubmit-nav" value="Select this database">
+			          </fieldset>
+			        </form>
+			      </div>                     
+			    </li>
             </ul>
         </div> 
     </div>

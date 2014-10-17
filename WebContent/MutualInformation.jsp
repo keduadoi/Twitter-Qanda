@@ -23,6 +23,7 @@
 <script>
 
 $( document ).ready(function() {
+	$("li#analysisNav").toggleClass('activate');
 	
     $(".loader").hide();
     
@@ -125,9 +126,9 @@ $( document ).ready(function() {
             <br/>
       		<form id="miForm" name="miForm" action="" method="post">
       			Select the threshold of mutual information
-		    	<input type="range" name="thresholdSlider" id="thresholdSlider" min="0" max="1" value="0.1" step=0.01
+		    	<input type="range" name="thresholdSlider" id="thresholdSlider" min="0" max="1" value="0.01" step=0.001
 		    		oninput="this.form.thresholdInput.value=this.value" />
-				<input type="number" name="thresholdInput" id="thresholdInput" min="0" max="1" value="0.1" step=0.01
+				<input type="number" name="thresholdInput" id="thresholdInput" min="0" max="1" value="0.01" step=0.001
 					oninput="this.form.thresholdSlider.value=this.value" />
 				<br/><br/>
 				<button type="button" class="btn btn-primary start" id="miSubmit" name="miSubmit">

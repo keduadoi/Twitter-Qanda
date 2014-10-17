@@ -14,6 +14,11 @@
 
 <!-- Example File -->
 <script language="javascript" type="text/javascript" src="js/network.js"></script>
+<script>
+$(document).ready(function(){
+	$("li#analysisNav").toggleClass('activate');
+});
+</script>
 </head>
 <body onload="checkDbCookie()">
 <!-- navigation bar -->
@@ -36,7 +41,7 @@
 </div>
 <!--<p>Only nodes with at least 1 retweet are shown in the network.</p>-->
 <div id="right-container">
-<form id="download" name="download" action="download" method="post">
+		<form id="download" name="download" action="download" method="post">
 		 	<br/>
 		 	<input type="hidden" id="tweetsJson" name="tweetsJson" value=""/>
 		 	<button type="button" class="btn btn-primary start" id="downloadTweets" name="downloadTweets">

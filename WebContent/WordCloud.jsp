@@ -8,6 +8,11 @@
 <script src="lib/jquery/jquery-1.7.1.js"></script>
 <script src="js/wordCloudBeta.js"></script>
 <script src="lib/wordcloud2/wordcloud2.js"></script>
+<script>
+$(document).ready(function(){
+	$("li#analysisNav").toggleClass('activate');
+});
+</script>
 </head>
 
 <body onload="checkDbCookie()">

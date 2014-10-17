@@ -215,7 +215,7 @@ public class CreateD3Network
     	while(allTweets.size()>1)
 		{ 
     		String lastDocId = "";
-    		for(int k=0;k<allTweets.size()-2;++k){
+    		for(int k=0;k<allTweets.size()-1;++k){
     			JsonObject tweetJson = allTweets.get(k);
         		lastDocId = tweetJson.get("id_str").toString().replaceAll("\"", "");
 			    Date createdDate = new Date();
@@ -871,7 +871,7 @@ public class CreateD3Network
             }
             alltweets.put("nodes", nodes);
             alltweets.put("links", links);
-            //alltweets.put("raw", rawTweets);
+            alltweets.put("raw", rawTweets);
         } catch (JSONException ex) {
             Logger.getLogger(CreateD3Network.class.getName()).log(Level.SEVERE, null, ex);
         }

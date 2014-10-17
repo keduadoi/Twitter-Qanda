@@ -3,6 +3,8 @@ package com.couchdb;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,11 +41,12 @@ public class CreateMutualInformationNetwork {
 					if(!joinDiscussions.contains(discussionId)){
 						joinDiscussions.add(discussionId);
 					}
+					discussionMap.put(screen_name, joinDiscussions);
 				}
 			}
 		}
 		
-		System.out.println(discussionMap.toString());
+		//System.out.println(discussionMap.toString());
 		
 		dbDiscussionClient.shutdown();
 		
@@ -62,7 +65,7 @@ public class CreateMutualInformationNetwork {
 		}
 		
 		dbDiscussionClient.shutdown();
-		System.out.println(marginalMap.toString());
+		//System.out.println(marginalMap.toString());
 		
 		return marginalMap;
 	}
@@ -88,7 +91,9 @@ public class CreateMutualInformationNetwork {
 						}
 					}
 				}
-				double joinPr = numCommonDiscussion*1.0/numOfDiscussions;
+				else{
+					continue;
+				}
 				
 				//check if MI of these two calculated
 				boolean miCalculated = false;
@@ -101,9 +106,11 @@ public class CreateMutualInformationNetwork {
 						miCalculated = true;
 						break;
 					}
-				}
+				}				
+				
 				
 				if(miCalculated == false){
+					double joinPr = numCommonDiscussion*1.0/numOfDiscussions;
 					double marginal1 = marginalMap.get(firstUsername);
 					double marginal2 = marginalMap.get(secondUsername);
 					double mi = joinPr * (Math.log(joinPr/(marginal1*marginal2)));

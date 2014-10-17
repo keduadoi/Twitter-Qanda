@@ -465,21 +465,6 @@ $(document).ready(function()
    
    $("#downloadTweets").click(function(event){
 	   $("#download").submit();
-//	   $.ajax({
-//		    url: 'download',
-//		    type: 'POST',
-//		    data: { tweetsJson: "{\"raw\":[{\"id\":1,\"text\":\"something\"}]}" },
-//		    success: function (data, statusText, jqXHR) {
-//		        //alert('the request was successfully sent to the server');
-//		    },
-//		    beforeSend: function(){
-//			       $('.loader').show();
-//			   },
-//			  complete: function(){
-//			       $('.loader').hide();
-//			       
-//			  }
-//		});
    });
    
    $.ajax(network_page.script_location,
@@ -501,7 +486,7 @@ $(document).ready(function()
 			   },
 			  complete: function(){
 			       $('.loader').hide();
-			       $("#downloadTweets").show();
+			       //$("#downloadTweets").show();
 			       
 			  }
 		});	

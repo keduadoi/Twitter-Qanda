@@ -143,6 +143,7 @@ var trendcomp = {
 	}
 
 $( document ).ready(function() {
+	$("li#analysisNav").toggleClass('activate');
 	
 	$(function() {
 		  $( "#from" ).datepicker({
